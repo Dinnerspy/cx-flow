@@ -45,7 +45,8 @@ public class GitHubControllerTest {
     private static final EmailService emailService = new EmailService(flowProperties, new TemplateEngine(), new JavaMailSenderImpl());
     private static final CxLegacyService cxLegacyService = new CxLegacyService(cxProperties, new WebServiceTemplate());
     private static final CxAuthClient authClient = new CxAuthService(cxProperties, cxLegacyService, restTemplate);
-    private static final CxService cxService = new CxService(authClient, cxProperties, cxLegacyService, restTemplate);
+    private static final ScanSettingsClient scanSettingsClient = new ScanSettingsClientImpl(restTemplate, cxProperties, authClient);
+    private static final CxService cxService = new CxService(authClient, cxProperties, cxLegacyService, restTemplate, scanSettingsClient);
     private static final List<VulnerabilityScanner> scanners = new ArrayList<>();
     private static final ProjectNameGenerator projectNameGenerator = new ProjectNameGenerator(helperService, cxProperties, scriptService);
     private static final FlowService flowService = new FlowService(scanners, projectNameGenerator, resultsService);
